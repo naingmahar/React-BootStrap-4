@@ -2,3 +2,9 @@
 
 
 ## Install
+
+```
+npm install
+or
+yarn
+```
