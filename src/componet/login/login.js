@@ -1,20 +1,27 @@
 import React,{Component} from 'react';
 
-
 class Login extends Component {
  
   state ={
-      username:"",
-      password:""
+      username:" ",
+      password:"",
+      usernameErrorMessage:"",
+      passwordErrorMessage:""
   }
 
   _onChageEmail= (e) =>{
-      this.setState({email:e.target.value})
+      this.setState({username:String(e.target.value).trim()})
   }
 
   _onChagePasword= (e) =>{
     this.setState({password:e.target.value})
 }
+
+  _onClickRegister = () =>{
+    if(!this.state.username) this.setState({usernameErrorMessage:"Username is empty"})
+    else if(!this.state.password) this.setState({passwordErrorMessage:"password is empty"})
+    else this.props.history.push("profile",this.state)
+  }
 
 
   render() {
@@ -26,27 +33,34 @@ class Login extends Component {
                 <div className="form-group">
                     <label>Name:</label>
                     <input 
-                        autoComplete="false" 
+                        autocomplete="off" 
                         type="text" 
                         className="form-control"
+                        value={this.state.username}
                         onChange={this._onChageEmail}
                     />
-                    <div class="col-sm-3">
-                        <small id="passwordHelp" class="text-danger">
-                            Must be email format.
+                    <div className="col-sm-3">
+                        <small id="usernameHelp" className="text-danger">
+                           {this.state.usernameErrorMessage}
                         </small>      
                     </div>
                 </div>
                 <div className="form-group">
                     <label>Password:</label>
-                    <input type="password" className="form-control" id="pwd" name="password" />
-                    <div class="col-sm-3">
-                        <small id="passwordHelp" class="text-danger">
-                            Must be 8-20 characters long.
+                    <input 
+                        value={this.state.password}
+                        autocomplete="off"
+                        type="password" 
+                        className="form-control"
+                        onChange={this._onChagePasword}
+                    />
+                    <div className="col-sm-3">
+                        <small id="passwordHelp" className="text-danger">
+                           {this.state.passwordErrorMessage}
                         </small>      
                     </div>
                 </div>
-                <button type="button" className="btn btn-primary">Register</button>
+                <button type="button" className="btn btn-primary" onClick={this._onClickRegister}>Register</button>
             </div>
         </div>
     )
