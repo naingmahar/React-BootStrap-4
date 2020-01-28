@@ -1,4 +1,5 @@
 import React from 'react';
+import { User } from '../../lib/api/axios';
 
 
 export default class Profile extends React.Component {
@@ -18,8 +19,18 @@ export default class Profile extends React.Component {
   }
 
   componentDidMount(){
-    let localData = localStorage.getItem("@localdata") 
-    if(localData) this.setState({history:JSON.parse(localData)}) 
+    // let localData = localStorage.getItem("@localdata") 
+    // if(localData) this.setState({history:JSON.parse(localData)}) 
+
+    User()
+    .then(apiResponse =>{
+      this.setState({
+        history:apiResponse.data
+      })
+    })
+    .catch(error =>{
+      alert(error.message)
+    })
   }
 
   _onClear = () =>{
@@ -34,9 +45,11 @@ export default class Profile extends React.Component {
       console.log(row)
       ui.push(
         <tr key={index}>
-          <td>{index}</td>
-          <td>{row.username}</td>
-          <td>{row.password}</td>
+          <td>{row.id}</td>
+          <td>{row.email}</td>
+          <td>{row.first_name}</td>
+          <td>{row.last_name}</td>
+          <td><img src={row.avatar} alt={row.first_name+row.last_name}/></td>
         </tr>
       )
     })
@@ -54,9 +67,11 @@ export default class Profile extends React.Component {
         <table className="table table-hover">
           <thead>
             <tr>
-              <th>No</th>
+              <th>Id</th>
               <th>Email</th>
-              <th>Password</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Image</th>
             </tr>
           </thead>
           <tbody>{this.renderTable()}</tbody>

@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import { User, Register } from '../../lib/api/axios';
 
 class Login extends Component {
  
@@ -19,8 +20,16 @@ class Login extends Component {
 
   _onClickRegister = () =>{
     if(!this.state.username) this.setState({usernameErrorMessage:"Username is empty"})
-    else if(!this.state.password) this.setState({passwordErrorMessage:"password is empty"})
-    else this.props.history.push("profile",this.state)
+    if(!this.state.password) this.setState({passwordErrorMessage:"password is empty"})
+    if(this.state.username && this.state.password) {
+        Register(this.state.username,this.state.password)
+            .then(apiResponse =>{
+                if(apiResponse.id)  this.props.history.push("profile",this.state)
+                if(!apiResponse.id) alert("Registration Fail")
+            })
+            .catch(error => alert(error.mesage))
+       
+    }
   }
 
 
