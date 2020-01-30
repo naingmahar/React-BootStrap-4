@@ -24,7 +24,8 @@ class Login extends Component {
     if(this.state.username && this.state.password) {
         Register(this.state.username,this.state.password)
             .then(apiResponse =>{
-                if(apiResponse.id)  this.props.history.push("profile",this.state)
+                if(apiResponse)  this.props.history.push("profile",{apiResponse})
+                //______________________________________props set apiResponse
                 if(!apiResponse.id) alert("Registration Fail")
             })
             .catch(error => alert(error.mesage))

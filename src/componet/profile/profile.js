@@ -5,7 +5,8 @@ import { User } from '../../lib/api/axios';
 export default class Profile extends React.Component {
  
   state ={ 
-    history : []
+    history : [],
+    image:"" // new state 
   }
 
   UNSAFE_componentWillMount (){
@@ -60,6 +61,14 @@ export default class Profile extends React.Component {
     const {username,password} = this.props.history.location.state
     return (<div>
       <div className="container">
+
+
+      {
+        this.props.history.location.apiResponse ? 
+        <img src={`data:image/png;base64,${this.props.history.location.apiResponse}`}/> : ''
+      }
+      {/* new componet */}
+
       <div className="row">
         <div className="col-xl-6"> <h4>Current User Name: {username}</h4> </div>
         <div className=" offset-xl-4 col-xl-2">  <button type="button" className="btn btn-danger" onClick={this._onClear}>Clear log</button> </div>
