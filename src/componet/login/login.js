@@ -25,8 +25,9 @@ class Login extends Component {
         Register(this.state.username,this.state.password)
             .then(apiResponse =>{
                 if(apiResponse)  this.props.history.push("profile",{apiResponse})
+                console.log(apiResponse)
                 //______________________________________props set apiResponse
-                if(!apiResponse.id) alert("Registration Fail")
+                // if(!apiResponse.id) alert("Registration Fail")
             })
             .catch(error => alert(error.mesage))
        
@@ -43,7 +44,6 @@ class Login extends Component {
                 <div className="form-group">
                     <label>Name:</label>
                     <input 
-                        autocomplete="off" 
                         type="text" 
                         className="form-control"
                         value={this.state.username}
@@ -59,7 +59,6 @@ class Login extends Component {
                     <label>Password:</label>
                     <input 
                         value={this.state.password}
-                        autocomplete="off"
                         type="password" 
                         className="form-control"
                         onChange={this._onChagePasword}

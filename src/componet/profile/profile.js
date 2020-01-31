@@ -58,15 +58,12 @@ export default class Profile extends React.Component {
   }
 
   render() {
+    console.log(this.props.history.location.state.apiResponse)
     const {username,password} = this.props.history.location.state
     return (<div>
       <div className="container">
-
-
-      {
-        this.props.history.location.apiResponse ? 
-        <img src={`data:image/png;base64,${this.props.history.location.apiResponse}`}/> : ''
-      }
+      
+      <img src={`${this.props.history.location.state.apiResponse}`} alt="test"/> 
       {/* new componet */}
 
       <div className="row">
